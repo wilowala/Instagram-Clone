@@ -1,0 +1,3 @@
+Hello {{username}}
+
+Thank you for signing up to Instagramclone App. We appreciate you choosing to be a part of us by join our ever growing community.
