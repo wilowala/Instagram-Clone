@@ -1,12 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from multiprocessing import context
 from django.contrib.auth import authenticate, login as authlogin,logout
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.db.models import Q
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 
 from .forms import RegisterForm, AddImageForm, UpdateImageForm, UpdateProfileForm
 from .emails import send_welcome_email
@@ -14,29 +13,26 @@ from instagram_app.models import Image, Profile, Follow, Comment, Likes
 
 # Create your views here.
 def login(request):
-    try:
-        page = 'login'
-        if request.method == 'POST':
-            username = request.POST.get('username').lower()
-            password = request.POST.get('password')
+    page = 'login'
+    if request.method == 'POST':
+        username = request.POST.get('username').lower()
+        password = request.POST.get('password')
 
-            try:
-                user = User.objects.get(username=username)
-            except Exception as e:
-                messages.error(request, 'User does not exist')
-                print(e)
+        try:
+            user = User.objects.get(username=username)
+        except:
+            messages.error(request, 'User doesnt exist')
 
-            user = authenticate(request, username=username, password=password)
+        user = authenticate(request, username=username, password=password)
 
-            if user is not None:
-                authlogin(request, user)
-                return redirect('home')
-            else:
-                messages.error(request, 'username or password does not exist')
-        context = {'page': page}
-        return render(request, 'instagram_app/login.html', context)
-    except:
-        HttpResponse(request, 'Not working!')
+        if user is not None:
+            authlogin(request, user)
+            return redirect('home')
+        else:
+            messages.error(request, 'username or password doesnt exist')
+    context = {'page': page}
+    return render(request, 'instagram_app/login.html', context)
+
 
 def register(request):
     form = RegisterForm()
@@ -55,7 +51,7 @@ def register(request):
 
             profile = Profile.objects.create(name=username, owner=user)
             profile.save()
-        return redirect(request, 'instagram_app/login.html',)
+        return redirect('login')
     context = {'page': page, 
                'form': form,}
     return render(request, 'instagram_app/register.html', context)
