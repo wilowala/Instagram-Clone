@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}{% block title %} {{page}} {% endblock %}
+
+{% block content %}
+{% if page == 'register'%}
+<div class="container-fluid white">
+    <div class="row">
+        <div class="col-md-6">
+            <img class='img-fluid' src="{%static 'assets/ig.png'%}" alt="register page image">
+        </div>
+        <div class="col-md-6">
+            <div class="mt-5">
+                <form action="" class="form-control p-5" method="POST">
+                    {%csrf_token%}
+                
+                    {% if messages %}
+                        <p class="messages text-center">
+                            {% for message in messages %}
+                        <p> {{ message }} </p>
+                            {% endfor %}
+                        </p>
+                    {% endif %}
+                
+                    <p class="text-center fs-3 logo">Instagramclone App</p>
+                    {{form}}
+                    <input type="submit" value="Signup" class="btn btn-login">
+                    <br>
+                    <p class="text-center text-secondary pt-3">
+                        <small>
+                            By signing up, you agree to our <a class="text-decoration-none"href="">Terms</a>, 
+                            <a class="text-decoration-none" href="">Data Policy</a> and 
+                            <a class="text-decoration-none" href="">Cookies Policy.</a>
+                        </small> 
+                    </p>
+                </form>
+                <div class="pt-2">
+                    <p class="form-control ps-5 pt-3 pb-3 pe-5">
+                        Already have an account?  <a class="text-decoration-none" href="{%url 'login' %}">Login</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%endif%}
+{% endblock %}
