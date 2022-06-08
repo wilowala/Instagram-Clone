@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{%load static%}
+{% block title %} {{page}} {% endblock %}
+
+
+{% block content %}
+{%if page == 'login'%}
+<div class="container-fluid white">
+    <div class="row ">
+        <div class="col-6 d-flex justify-content-around align-items-center" style="margin-top: 10vh;">
+            <img class='img-fluid' src="{%static 'assets/ig.png'%}" alt="login page image">
+        </div>
+        <div class="col-6" style="margin-top: 10vh;">
+            <div class="mt-5" style="width: 80%;">
+                <form action="" class="form-control p-5" method="POST">
+                    {%csrf_token%}
+
+                    {% if messages %}
+                    <p class="messages text-center">
+                        {% for message in messages %}
+                    <p> {{ message }} </p>
+                    {% endfor %}
+                    </p>
+                    {% endif %}
+
+                    <p class="text-center fs-3 logo">Instagramclone App</p>
+
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Username</label>
+                        <input type="username" name="username" class="form-control" id="username"
+                            placeholder="name">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Password</label>
+                        <input type="password" name="password" class="form-control" id="password">
+                    </div>
+
+                    <div class="row mt-2 mb-3">
+                        <div class="col-md-6">
+                            <input type="submit" value="Login" class="btn btn-login">
+                        </div>
+                        <div class="col-md-6 pt-2">
+                            <a class="text-decoration-none" href=""> Forgot your password? </a>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="pt-2" style="width: 80%;">
+                <p class="form-control ps-5 pt-3 pb-3 pe-5">
+                    Dont have an account?  <a href="{%url 'register' %}" class="text-decoration-none">Signup</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{%endif%}
+{% endblock %}
