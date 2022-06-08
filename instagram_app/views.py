@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.db.models import Q
+from django.http import HttpResponseRedirect
 
 from .forms import RegisterForm, AddImageForm, UpdateImageForm, UpdateProfileForm
 from .emails import send_welcome_email
