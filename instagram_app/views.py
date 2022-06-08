@@ -209,7 +209,6 @@ def unfollow(request, pk):
         unfollow_d.delete()
         return redirect('profile')
 
-
 def follow(request, pk):
     if request.method == 'GET':
         try:
