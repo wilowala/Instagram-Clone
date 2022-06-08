@@ -8,7 +8,7 @@ from django.db.models import Q
 from django.http import HttpResponseRedirect, HttpResponse
 
 from .forms import RegisterForm, AddImageForm, UpdateImageForm, UpdateProfileForm
-from .emails import send_welcome_email
+# from .emails import send_welcome_email
 from instagram_app.models import Image, Profile, Follow, Comment, Likes
 
 # Create your views here.
@@ -47,7 +47,7 @@ def register(request):
             username = form.cleaned_data['username']
             email = form.cleaned_data['email']
             recipient = User(username=username, email=email)
-            send_welcome_email(username, email)
+            # send_welcome_email(username, email)
 
             profile = Profile.objects.create(name=username, owner=user)
             profile.save()
